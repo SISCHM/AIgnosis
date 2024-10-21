@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Anamnese Chat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Optional: Google Fonts für ein modernes Schriftbild -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <!-- Chat-Bereich -->
+            <div class="col-md-6 d-flex flex-column">
+                <div class="chat-header bg-success text-white text-center py-3">
+                    <h2>Anamnese Gespräch</h2>
+                </div>
+                <div class="chat-window flex-grow-1 p-3 overflow-auto bg-light">
+                    <!-- Chat-Nachrichten -->
+                </div>
+                <div class="chat-input p-3 bg-secondary">
+                    <div class="input-group">
+                        <input type="text" id="user-input" class="form-control" placeholder="Deine Nachricht..." aria-label="Nachricht eingeben">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" id="send-button" type="button"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unity-Einbindung -->
+            <div class="col-md-6 bg-dark">
+                <iframe src="{{ url_for('static', filename='unity/index.html') }}" class="w-100 h-100" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
