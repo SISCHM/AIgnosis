@@ -175,3 +175,6 @@ DocAnamnesis/.idea/
 
 # venv
 DocAnamnesis/venv/
+
+# openai key
+OPENAI_API_KEY.txt
