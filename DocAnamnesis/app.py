@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from utils.functions import process_user_input  # Stelle sicher, dass diese Funktion existiert
+from src.utils.functions import process_user_input
 from src import Anamnesis
 app = Flask(__name__)
 
