@@ -8,55 +8,61 @@ document.getElementById('user-input').addEventListener('keypress', function(e) {
 function sendMessage() {
     const input = document.getElementById('user-input');
     const message = input.value.trim();
+
+    console.log('User input:', message);
+
     if (message === "") return;
 
     appendMessage('user', message);
     input.value = '';
 
-    fetch('/api/message', {
+    
+    fetch('/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: message })
+        body: JSON.stringify({answer: message})
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Netzwerkantwort war nicht ok');
+            throw new Error('Network response was not ok');
         }
         return response.json();
     })
     .then(data => {
         appendMessage('doctor', data.response);
-        // Optional: Trigger Unity-Arzt-Aktionen hier
+        // Optional: Trigger Unity doctor actions here
     })
     .catch(error => {
-        appendMessage('system', 'Es gab ein Problem mit deiner Anfrage.');
-        console.error('Fehler:', error);
+        appendMessage('system', 'There was a problem with your request.');
+        console.error('Error:', error);
     });
+
 }
 
 function appendMessage(sender, message) {
     const chatLog = document.getElementById('chat-log');
 
-    // Erstelle das Nachrichten-Container-Element
+    // Create the message container element
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', sender);
 
-    // Erstelle die Sprechblase
+    // Create the speech bubble
     const bubble = document.createElement('div');
     bubble.classList.add('bubble');
     bubble.textContent = message;
 
-    // Füge die Sprechblase dem Nachrichten-Container hinzu
+    // Add the speech bubble to the message container
     messageElement.appendChild(bubble);
 
-    // Füge die Nachricht dem Chat-Log hinzu
+    // Add the message to the chat log
     chatLog.appendChild(messageElement);
 
-    // Scrollt automatisch nach unten
+    // Automatically scroll to the bottom
     chatLog.scrollTop = chatLog.scrollHeight;
 }
 
-// main.js (Am Ende des Dokuments hinzufügen)
+// main.js (Add at the end of the document)
 window.onload = function() {
     document.getElementById('user-input').focus();
 };
+

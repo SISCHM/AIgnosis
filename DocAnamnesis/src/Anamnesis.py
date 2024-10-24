@@ -1,4 +1,4 @@
-import LLM_init
+from . import LLM_init
 
 class Anamnesis:
     def __init__(self):

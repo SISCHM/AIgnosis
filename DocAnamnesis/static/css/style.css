@@ -1,103 +1,162 @@
-/* Allgemeine Stile */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f9f9f9;
     margin: 0;
-    padding: 0;
-    /* Neue Flexbox-Eigenschaften für Zentrierung */
+    font-family: 'Roboto', sans-serif;
     display: flex;
-    justify-content: center; /* Horizontale Zentrierung */
-    align-items: center;     /* Vertikale Zentrierung */
+    flex-direction: column;
     height: 100vh;
+    overflow-y: auto;
+}
+
+header {
+    background-color: #007BFF;
+    color: #007BFF;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+
+    background-image: url('doc.jpg'); /* Percorso dell'immagine di sfondo */
+    background-size: cover; /* Adatta l'immagine per coprire l'intero sfondo */
+    background-position: center; /* Centra l'immagine */
+    background-repeat: no-repeat; /* Non ripetere l'immagine */
+}
+
+.logo {
+    margin-right: 10px; /* Spazio tra l'icona e il titolo */
+}
+
+.logo svg {
+    width: 40px; /* Larghezza dell'icona */
+    height: 40px; /* Altezza dell'icona */
+    fill: white; /* Colore dell'icona */
 }
 
 .container {
     display: flex;
-    height: 80vh; /* Feste Höhe von 80% der Ansichtshöhe */
-    width: 90%;    /* Optional: Breite auf 90% des Viewports setzen */
-    max-width: 1200px; /* Optional: Maximale Breite für größere Bildschirme */
-    background-color: #fff;
-    border-radius: 15px; /* Abgerundete Ecken */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Schatten für Tiefeneffekt */
-    overflow: hidden; /* Damit die inneren Elemente nicht über die abgerundeten Ecken hinausragen */
-}
-
-/* Chat-Bereich */
-.chat-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid #ddd;
-    background-color: #fff;
-    border-top-left-radius: 15px;    /* Obere linke Ecke abrunden */
-    border-bottom-left-radius: 15px; /* Untere linke Ecke abrunden */
-}
-
-.chat-header {
-    padding: 20px;
-    background-color: #4CAF50; /* Grüner Header */
-    color: white;
-    text-align: center;
-    border-top-left-radius: 15px;    /* Obere linke Ecke abrunden */
-}
-
-.chat-window {
     flex: 1;
     padding: 20px;
+    overflow: hidden; /* Aggiunto per evitare il trabocco */
     overflow-y: auto;
-    background-color: #f1f1f1;
 }
 
-.chat-input {
-    display: flex;
-    padding: 10px 20px;
-    background-color: #eee;
-    border-top: 1px solid #ddd;
-}
-
-.chat-input input {
+.column {
     flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 25px;
-    outline: none;
-    font-size: 16px;
-}
-
-.chat-input button {
-    margin-left: 10px;
-    padding: 10px 20px;
-    background-color: #4CAF50; /* Grüner Button */
-    color: white;
+    margin: 0 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+    display: flex;
+    flex-direction: column; /* Rendi la colonna verticale */
+    background-color: #f9f9f9;
+    border-radius: 10px;
     border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+
+    background-image: url('doc.jpg'); /* Percorso dell'immagine di sfondo */
+    background-size: cover; /* Adatta l'immagine per coprire l'intero sfondo */
+    background-position: center; /* Centra l'immagine */
+    background-repeat: no-repeat; /* Non ripetere l'immagine */
 }
 
-.chat-input button:hover {
-    background-color: #45a049;
+.chat-area {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Occupa lo spazio disponibile */
+    margin-bottom: 10px; /* Spazio tra la chat e il footer */
+    height: 80%; /* Imposta l'altezza massima al 100% del div contenitore */
+    max-height: 500px;
+    opacity: 0.95;
 }
 
-/* Unity-Einbindung */
-.unity-section {
-    width: 600px; /* Beibehalten oder nach Bedarf anpassen */
-    background-color: #000;
-    border-top-right-radius: 15px;    /* Obere rechte Ecke abrunden */
-    border-bottom-right-radius: 15px; /* Untere rechte Ecke abrunden */
-
-    /* Hinzugefügte Eigenschaften für den rechten Abstand */
-    padding-right: 20px;               /* Rechter Abstand */
-    box-sizing: border-box;            /* Padding innerhalb der Breite */
+.chat-window {
+    flex: 1; /* Occupa lo spazio disponibile */
+    max-height: 100%; /* Imposta l'altezza massima al 100% del div contenitore */
+    overflow-y: hidden; /* Nasconde la barra di scorrimento */
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
 }
 
-.unity-section iframe {
-    border-radius: 15px;
-    overflow: hidden;
+/* Mostra la barra di scorrimento solo quando l'elemento è in stato hover */
+.chat-window:hover {
+    overflow-y: auto; /* Abilita la barra di scorrimento al passaggio del mouse */
 }
 
-/* Chat-Nachrichten */
+/* Nasconde le barre di scorrimento per i browser webkit (Chrome, Safari) */
+.chat-window::-webkit-scrollbar {
+    display: none; /* Nasconde la barra di scorrimento */
+}
+
+/* Nasconde le barre di scorrimento per Firefox */
+.chat-window {
+    scrollbar-width: none; /* Nasconde la barra di scorrimento per Firefox */
+}
+
+
+.input-area {
+    display: flex;
+    margin-top: 10px;
+    outline: none;
+    justify-content: flex-end; /* Posiziona il contenuto in fondo al contenitore */
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    outline: none;
+
+}
+
+button {
+    padding: 10px 15px; /* Padding interno */
+    margin-left: 10px;
+    background-color: #6eacee; /* Colore di sfondo */
+    color: white; /* Colore del testo */
+    border: none; /* Nessun bordo */
+    border-radius: 4px; /* Bordi arrotondati */
+    cursor: pointer; /* Cambia il cursore a mano */
+    outline: none; /* Rimuove il contorno di default */
+    transition: background-color 0.3s ease; /* Transizione del colore di sfondo */
+}
+
+button:focus {
+    outline: none; /* Rimuove il contorno quando il pulsante è selezionato */
+    border-radius: 4px; /* Bordi arrotondati */
+
+}
+
+button:hover {
+    background-color: #007BFF; /* Colore di sfondo al passaggio del mouse */
+    border-radius: 4px; /* Mantieni i bordi arrotondati */
+}
+
+#modelSelect {
+    padding: 10px 15px; /* Padding interno */
+    margin-left: 10px;
+    background-color: rgba(200, 230, 201, 0.5); /* Colore di sfondo */
+    color: black; /* Colore del testo */
+    border: none; /* Nessun bordo */
+    border-radius: 4px; /* Bordi arrotondati */
+    cursor: pointer; /* Cambia il cursore a mano */
+    outline: none; /* Rimuove il contorno di default */
+    transition: background-color 0.3s; /* Transizione del colore di sfondo */
+}
+
+#modelSelect option {
+    background-color: rgba(200, 230, 201, 0.5); /* Colore di sfondo delle opzioni */
+    color: black; /* Colore del testo delle opzioni */
+}
+
+
+footer {
+    text-align: center;
+    background-color: #f1f1f1;
+    
+}
+
 .message {
     display: flex;
     margin-bottom: 15px;
@@ -133,23 +192,24 @@ body {
     border-top-right-radius: 0;
 }
 
-/* Scrollbar-Stile (optional, für Webkit) */
-.chat-window::-webkit-scrollbar {
-    width: 8px;
+
+/* Unity-Einbindung */
+.unity-section {
+    width: 600px; /* Beibehalten oder nach Bedarf anpassen */
+    background-color: #c8e6c9;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+
+    /* Hinzugefügte Eigenschaften für den rechten Abstand */
+    padding-right: 20px;               /* Rechter Abstand */
+    box-sizing: border-box;            /* Padding innerhalb der Breite */
 }
 
-.chat-window::-webkit-scrollbar-track {
-    background: #f1f1f1;
+.unity-section iframe {
+    border-radius: 15px;
+    overflow: hidden;
 }
 
-.chat-window::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 4px;
-}
-
-.chat-window::-webkit-scrollbar-thumb:hover {
-    background: #aaa;
-}
 
 /* Responsive Design */
 @media (max-width: 1200px) {
@@ -171,5 +231,3 @@ body {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
-

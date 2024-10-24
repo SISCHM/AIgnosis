@@ -22,10 +22,10 @@ def textify_information(information):
 class LLM:
     def __init__(self):
         self.openAI_api_key = get_openai_api_key()
-        self.diagnosis_model = "gpt-4"
-        self.question_model = "your-fine-tuned-model"
-        self.ready_for_diagnosis_model = "gpt-4"
-        self.summarize_model = "gpt-4"
+        self.diagnosis_model = "gpt-4o-mini"
+        self.question_model = "gpt-4o-mini"
+        self.ready_for_diagnosis_model = "gpt-4o-mini"
+        self.summarize_model = "gpt-4o-mini"
         self.functions = [
             {
                 "name": "update_required_information",
