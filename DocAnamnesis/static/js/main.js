@@ -29,7 +29,7 @@ function sendMessage() {
         return response.json();
     })
     .then(data => {
-        appendMessage('doctor', data.response);
+        appendMessage('doctor', data.question);
         // Optional: Trigger Unity doctor actions here
     })
     .catch(error => {
@@ -41,7 +41,6 @@ function sendMessage() {
 
 function appendMessage(sender, message) {
     const chatLog = document.getElementById('chat-log');
-
     // Create the message container element
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', sender);
