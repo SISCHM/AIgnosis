@@ -1,7 +1,7 @@
 from . import LLM_init
 
 class Anamnesis:
-    def __init__(self):
+    def __init__(self, question_model='gpt-4o-mini'):
         self.information = {
             "duration": "",
             "symptoms": "",
@@ -9,7 +9,7 @@ class Anamnesis:
             # Add other required fields here
         }
         self.required = self.information.keys()
-        self.llm = LLM_init.LLM()
+        self.llm = LLM_init.LLM(question_model=question_model)
         self.last_question = ""
         self.answer = ""
 

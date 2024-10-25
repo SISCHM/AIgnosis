@@ -3,6 +3,7 @@ from src.utils.functions import process_user_input
 from src import Anamnesis
 app = Flask(__name__)
 
+question_model = {'Fine-Tuned':'ft:gpt-4o-mini-2024-07-18:aignosis:question-generation:AMH71lgN', 'Normal':'gpt-4o-mini'}
 initial_greetings = ["Hello, what seems to be the issue today?",
 "Good morning! How can I assist you with your health today?",
 "Hi, what brings you to see me today?",
@@ -28,6 +29,7 @@ def index():
 #     return jsonify({'response': 'Keine Nachricht erhalten.'}), 400
 
 ########### Example implementation and how to call it: ####################
+# Can now initiate the Model with either of the two question models
 anamnesis = Anamnesis.Anamnesis()
 last_question = ""
 @app.route('/chat', methods=['POST'])
