@@ -1,7 +1,7 @@
 from . import LLM_init
 
 class Anamnesis:
-    def __init__(self, model='gpt-4o-mini'): # Default model is gpt-4o-mini
+    def __init__(self, model='gpt-4o-mini'):
         self.model = model
         self.information = {
             "duration": "",
@@ -21,9 +21,14 @@ class Anamnesis:
         self.last_question = last_question
         self.answer = answer
         response = self.llm(task='summary', last_question=self.last_question, answer=self.answer)
+        undesired_responses = ["not specified", "not mentioned", "unknown", "none"]
         for key, value in response.items():
-            if key in self.information and value:
-                self.information[key] += value
+            if key in self.information and value and value.lower() not in undesired_responses:
+                entries = [item.strip() for item in value.split(',')]
+                for entry in entries:
+                    if entry and entry not in self.information[key]:
+                        self.information[key].append(entry)
+        print(f'Current Information: {self.information}')
         return self.information
 
     def check_if_ready_for_diagnosis(self):

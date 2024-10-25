@@ -14,11 +14,11 @@ def get_openai_api_key():
             file.write(key)
     return key
 
-
 def textify_information(information):
-    return "\n".join([f"{key}: {value}" for key, value in information.items()])
-
-
+    return "\n".join([
+        f"{key}: {', '.join(value) if isinstance(value, list) else value}"
+        for key, value in information.items()
+    ])
 
 class LLM:
     def __init__(self, model):
