@@ -23,6 +23,7 @@ def textify_information(information):
 class LLM:
     def __init__(self, question_model='gpt-4o-mini'):
         self.openAI_api_key = get_openai_api_key()
+        
         self.client = openai.OpenAI(api_key=self.openAI_api_key)
         self.diagnosis_model = "gpt-4o-mini"
         self.question_model = question_model
