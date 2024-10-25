@@ -1,15 +1,19 @@
 from . import LLM_init
 
 class Anamnesis:
-    def __init__(self):
+    def __init__(self, model='gpt-4o-mini'): # Default model is gpt-4o-mini
+        self.model = model
         self.information = {
             "duration": "",
             "symptoms": "",
-            "pre_existing_conditions": "",
-            # Add other required fields here
+            "pre_existing_conditions": "", 
+            "medications": "", 
+            "allergies": "", 
+            "severity": "", 
+            "lifestyle_factors": "", 
         }
         self.required = self.information.keys()
-        self.llm = LLM_init.LLM()
+        self.llm = LLM_init.LLM(model)
         self.last_question = ""
         self.answer = ""
 
@@ -44,7 +48,7 @@ class Anamnesis:
             formatted_diagnosis = (
                 f"**Diagnosis**: {diagnosis_info['diagnosis']}\n"
                 f"**Recommendations**:\n"
-                f"- {diagnosis_info['recommendations']}\n"
+                f"{diagnosis_info['recommendations']}\n"
             )
 
             if diagnosis_info.get('specialist'):

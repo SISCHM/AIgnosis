@@ -21,14 +21,14 @@ def textify_information(information):
 
 
 class LLM:
-    def __init__(self):
+    def __init__(self, model):
         self.openAI_api_key = get_openai_api_key()
         
         self.client = openai.OpenAI(api_key=self.openAI_api_key)
-        self.diagnosis_model = "gpt-4o-mini"
-        self.question_model = "gpt-4o-mini"
-        self.ready_for_diagnosis_model = "gpt-4o-mini"
-        self.summarize_model = "gpt-4o-mini"
+        self.diagnosis_model = model
+        self.question_model = model
+        self.ready_for_diagnosis_model = model
+        self.summarize_model = model
         self.functions = [
             {
                 "name": "update_required_information",
@@ -39,9 +39,12 @@ class LLM:
                         "duration": {"type": "string", "description": "Duration of the issue."},
                         "symptoms": {"type": "string", "description": "Symptoms described by the user."},
                         "pre_existing_conditions": {"type": "string", "description": "Any pre-existing conditions."},
-                        # Add other fields here
+                        "medications": {"type": "string", "description": "Any medications the user is currently taking."},
+                        "allergies": {"type": "string", "description": "Any allergies the user has."},
+                        "severity": {"type": "string", "description": "Severity of symptoms (e.g., mild, moderate, severe)."},
+                        "lifestyle_factors": {"type": "string", "description": "Lifestyle factors such as smoking, alcohol use, exercise, etc."},
                     },
-                    "required": ["duration", "symptoms", "pre_existing_conditions"]
+                    "required": ["duration", "symptoms", "pre_existing_conditions", "medications", "allergies", "severity", "onset", "triggers", "relief_methods", "family_history", "lifestyle_factors", "recent_travel", "diet", "sleep_patterns", "previous_treatments"]
                 }
             },
             {
