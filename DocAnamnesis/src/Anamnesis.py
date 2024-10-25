@@ -4,13 +4,13 @@ class Anamnesis:
     def __init__(self, model='gpt-4o-mini'):
         self.model = model
         self.information = {
-            "duration": "",
-            "symptoms": "",
-            "pre_existing_conditions": "", 
-            "medications": "", 
-            "allergies": "", 
-            "severity": "", 
-            "lifestyle_factors": "", 
+            "duration": [],
+            "symptoms": [],
+            "pre_existing_conditions": [], 
+            "medications": [], 
+            "allergies": [], 
+            "severity": [], 
+            "lifestyle_factors": [], 
         }
         self.required = self.information.keys()
         self.llm = LLM_init.LLM(model)
