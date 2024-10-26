@@ -1,39 +1,16 @@
 let selectedModel = localStorage.getItem('selectedModel') || 'gpt-4o-mini';
 document.getElementById('modelSelect').value = selectedModel;
 document.getElementById('modelSelect').addEventListener('change', function() {
-    selectedModel = this.value; // Update selected model
-    localStorage.setItem('selectedModel', selectedModel); // Save to localStorage
-    location.reload(); // Refresh the page
-});
-
-document.getElementById('author-btn').addEventListener('mouseover', function() {
-    // Create the tooltip element
-    const tooltip = document.createElement('div');
-    tooltip.textContent = 'This project was created by Irene Burri and Simon Scherello for the Natural Language Processing course of Reykjavik University to help patients get a preliminary diagnosis. The project uses the OpenAI API to generate responses based on the user input.';
-    
-    // Style the tooltip
-    tooltip.style.position = 'absolute';
-    tooltip.style.bottom = '40px';
-    tooltip.style.left = '-10px';
-    tooltip.style.backgroundColor = 'lightgrey';
-    tooltip.style.border = '1px solid black';
-    tooltip.style.padding = '8px';
-    tooltip.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.1)';
-    tooltip.style.whiteSpace = 'pre-wrap'; // Enable multi-line text display
-    tooltip.style.color = 'black';
-    tooltip.style.width = '200px';
-    tooltip.style.borderRadius = '4px';
-
-    this.appendChild(tooltip);
-    this.addEventListener('mouseout', function() {
-        tooltip.remove();
-    });
+    selectedModel = this.value; 
+    localStorage.setItem('selectedModel', selectedModel); 
+    location.reload(); 
 });
 
 document.getElementById('send-button').addEventListener('click', sendMessage);
 document.getElementById('user-input').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         sendMessage();
+        document.getElementById('user-input').disabled = true;
     }
 });
 
@@ -63,15 +40,16 @@ function sendMessage() {
     })
     .then(data => {
         if (data.message === "Next Question" && data.question) {
-            // Continue with the next question
             appendMessage('doctor', data.question);
+            document.getElementById('user-input').disabled = false;
+            document.getElementById('user-input').focus();
+
         } else if (data.message === "Diagnosis" && data.diagnosis) {
-            // Display the diagnosis and specialist recommendation
             appendMessage('doctor', data.diagnosis);
             console.log(data.diagnosis);
             
             // Optional: Disable input if it's the final diagnosis
-            input.disabled = true;  // Prevent further input
+            input.disabled = true;  
             document.getElementById('send-button').disabled = true;
 
             startAgain();
@@ -208,6 +186,30 @@ function startAgain() {
     // Scroll to bottom to make new content visible
     chatLog.scrollTop = chatLog.scrollHeight;
 }
+
+document.getElementById('author-btn').addEventListener('mouseover', function() {
+    // Create the tooltip element
+    const tooltip = document.createElement('div');
+    tooltip.textContent = 'This project was created by Irene Burri and Simon Scherello for the Natural Language Processing course of Reykjavik University to help patients get a preliminary diagnosis. The project uses the OpenAI API to generate responses based on the user input.';
+    
+    // Style the tooltip
+    tooltip.style.position = 'absolute';
+    tooltip.style.bottom = '40px';
+    tooltip.style.left = '-10px';
+    tooltip.style.backgroundColor = 'lightgrey';
+    tooltip.style.border = '1px solid black';
+    tooltip.style.padding = '8px';
+    tooltip.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.1)';
+    tooltip.style.whiteSpace = 'pre-wrap'; // Enable multi-line text display
+    tooltip.style.color = 'black';
+    tooltip.style.width = '200px';
+    tooltip.style.borderRadius = '4px';
+
+    this.appendChild(tooltip);
+    this.addEventListener('mouseout', function() {
+        tooltip.remove();
+    });
+});
 
 initial_greetings = ["Hello, what seems to be the issue today?",
     "Good morning! How can I assist you with your health today?",
