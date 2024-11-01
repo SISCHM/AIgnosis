@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, url_for
 from src.utils.functions import process_user_input
 from src import Anamnesis
+from src import TTS
 app = Flask(__name__)
+AUDIO_FOLDER = 'static/audio'
 
 initial_greetings = ["Hello, what seems to be the issue today?",
 "Good morning! How can I assist you with your health today?",
@@ -41,16 +43,26 @@ def chat():
     # Process the customer's response and decide the next step
     result = anamnesis.process_response(last_question, answer)
     last_question = result['content']
+
+    audio_filename = f"{AUDIO_FOLDER}/{result['type']}_response.mp3"
+    with open(audio_filename, 'wb') as audio_file:
+        audio_file.write(TTS.generate_audio(result['content']).getbuffer())
+
+    # Include audio file URL in JSON response
+    audio_url = url_for('static', filename=f'audio/{result["type"]}_response.mp3', _external=True)
+
     # Format and return the response to the web app
     if result['type'] == 'diagnosis':
         return jsonify({
             "message": "Diagnosis",
-            "diagnosis": result['content']
+            "diagnosis": result['content'],
+            "audio_url": audio_url
         })
     elif result['type'] == 'question':
         return jsonify({
             "message": "Next Question",
-            "question": result['content']
+            "question": result['content'],
+            "audio_url": audio_url
         })
 
 

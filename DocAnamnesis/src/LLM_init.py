@@ -25,10 +25,10 @@ class LLM:
         self.openAI_api_key = get_openai_api_key()
         
         self.client = openai.OpenAI(api_key=self.openAI_api_key)
-        self.diagnosis_model = model
+        self.diagnosis_model = 'gpt-4o-mini'
         self.question_model = model
-        self.ready_for_diagnosis_model = model
-        self.summarize_model = model
+        self.ready_for_diagnosis_model = 'gpt-4o-mini'
+        self.summarize_model = 'gpt-4o-mini'
         self.functions = [
             {
                 "name": "update_required_information",

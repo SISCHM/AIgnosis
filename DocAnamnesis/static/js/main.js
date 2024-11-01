@@ -57,6 +57,13 @@ function sendMessage() {
             // Handle any unexpected cases
             appendMessage('system', 'Unexpected response from the server.');
         }
+        const unityIframe = document.querySelector('.unity-section iframe');
+        if (unityIframe && data.audio_url) {
+            unityIframe.contentWindow.postMessage({
+                type: 'Say',
+                audioUrl: data.audio_url
+            }, '*');
+        }
     })
     .catch(error => {
         appendMessage('system', 'There was a problem with your request.');

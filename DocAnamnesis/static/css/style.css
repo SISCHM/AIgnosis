@@ -241,7 +241,7 @@ footer {
 /* Unity-Einbindung */
 .unity-section {
     width: 35%; /* Beibehalten oder nach Bedarf anpassen */
-    background-color: grey;
+    background-color: #CDCDCD;
     border-color: none;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
