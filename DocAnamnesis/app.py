@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify, url_for
-from src.utils.functions import process_user_input
 from src import Anamnesis
 from src import TTS
+import os
 app = Flask(__name__)
 AUDIO_FOLDER = 'static/audio'
 
@@ -67,4 +67,9 @@ def chat():
 
 
 if __name__ == '__main__':
+
+    # check if the audio folder exists
+    if not os.path.exists(AUDIO_FOLDER):
+        os.makedirs(AUDIO_FOLDER)
+
     app.run(debug=True)
