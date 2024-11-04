@@ -240,16 +240,17 @@ footer {
 
 /* Unity-Einbindung */
 .unity-section {
-    width: 35%; /* Beibehalten oder nach Bedarf anpassen */
+    width: 50%; /* Beibehalten oder nach Bedarf anpassen */
     background-color: #CDCDCD;
     border-color: none;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
     /* Hinzugefügte Eigenschaften für den rechten Abstand */
-    padding-right: 20px;               /* Rechter Abstand */
     box-sizing: border-box;            /* Padding innerhalb der Breite */
-}
+}w
 
 .unity-section iframe {
     border-radius: 15px;

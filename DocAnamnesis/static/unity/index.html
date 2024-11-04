@@ -6,7 +6,7 @@
     <title>Unity WebGL Player | FinalProject</title>
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=365 height=760 tabindex="-1" style="width: 365px; height: 760px; background: #231F20"></canvas>
+    <canvas id="unity-canvas" width=535 height=760 tabindex="-1" style="width: 535px; height: 760px; background: #231F20"></canvas>
     <script src="Build/Builds.loader.js"></script>
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
@@ -40,12 +40,25 @@
       });
 
       window.addEventListener('message', function(event) {
-        if (event.data.type === 'Say' && event.data.audioUrl) {
-          const audioUrl = event.data.audioUrl;
-          if (unityInstance) {
-            unityInstance.SendMessage("f153_hipoly_81_bones_opacity", "Say", audioUrl);
+          const { type, audioUrl } = event.data;
+
+          if (type === 'Say' && audioUrl) {
+              // Call Unity's SetMode function with "say" and provide audioUrl for speaking
+              if (unityInstance) {
+                  unityInstance.SendMessage("f153_hipoly_81_bones_opacity", "SetMode", "Say");
+                  unityInstance.SendMessage("f153_hipoly_81_bones_opacity", "Say", audioUrl);
+              }
+          } else if (type === 'listen') {
+              // Set Unity to "Listen" mode
+              if (unityInstance) {
+                  unityInstance.SendMessage("f153_hipoly_81_bones_opacity", "SetMode", "Listen");
+              }
+          } else if (type === 'idle') {
+              // Set Unity to "Idle" mode
+              if (unityInstance) {
+                  unityInstance.SendMessage("f153_hipoly_81_bones_opacity", "SetMode", "Idle");
+              }
           }
-        }
       });
     </script>
   </body>

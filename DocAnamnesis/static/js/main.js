@@ -59,6 +59,7 @@ function sendMessage() {
         }
         const unityIframe = document.querySelector('.unity-section iframe');
         if (unityIframe && data.audio_url) {
+            console.log("Call the Say function")
             unityIframe.contentWindow.postMessage({
                 type: 'Say',
                 audioUrl: data.audio_url
@@ -234,4 +235,36 @@ window.onload = function() {
     document.getElementById('user-input').focus();
     appendMessage('doctor', initial_greetings[Math.floor(Math.random() * initial_greetings.length)]);
 };
+
+let typingTimeout;
+let isTyping = false;
+
+function startTyping() {
+    if (!isTyping) {
+        isTyping = true;
+        sendMessageToUnity('listen');  // Call the Unity "listen" function when typing starts
+    }
+
+    clearTimeout(typingTimeout);
+
+    // Set a timeout to detect when the user has stopped typing
+    typingTimeout = setTimeout(() => {
+        isTyping = false;
+        sendMessageToUnity('idle');  // Set Unity avatar to idle after typing stops
+    }, 2000);  // 2-second delay after the last keystroke
+}
+
+// Attach the startTyping function to keypress events in the input field
+document.getElementById('user-input').addEventListener('input', startTyping);
+
+// Function to send messages to Unity for actions like "listen" or "idle"
+function sendMessageToUnity(action) {
+    const unityIframe = document.querySelector('.unity-section iframe');
+    if (unityIframe && action) {
+        unityIframe.contentWindow.postMessage({
+            type: action
+        }, '*');
+    }
+}
+
 
