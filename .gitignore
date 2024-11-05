@@ -9,7 +9,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
 develop-eggs/
 dist/
 downloads/
@@ -168,10 +167,6 @@ DocAnamnesis/.idea/
 .pt
 .csv
 .tsv
-
-# ignore the config files with token/key
-# webapp/source/utils/HUGGINGFACE_TOKEN.txt
-# webapp/source/utils/OPENAI_API_KEY.txt
 
 # venv
 DocAnamnesis/venv/
