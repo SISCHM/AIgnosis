@@ -28,6 +28,8 @@ class Anamnesis:
                 for entry in entries:
                     if entry and entry not in self.information[key]:
                         self.information[key].append(entry)
+                        if "N/A" in self.information[key]:
+                            self.information[key].remove("N/A")
         print(f'Current Information: {self.information}')
         return self.information
 

@@ -133,25 +133,58 @@ function saveDiagnosisAsPDF(diagnosisText) {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF();
 
+    // Split diagnosis text into lines
     const lines = diagnosisText.split("\n").map(line => {
-        // Format bold text in PDF
-        if (line.startsWith("**Diagnosis**")) return `Diagnosis: ${line.replace("**Diagnosis**: ", "")}`;
-        if (line.startsWith("**Recommendations**")) return `Recommendations: ${line.replace("**Recommendations**:", "")}`;
-        if (line.startsWith("**Specialist**")) return `Specialist: ${line.replace("**Specialist**: ", "")}`;
-        return line;
+        // Format sections with bold text
+        if (line.startsWith("**Diagnosis**")) {
+            return { text: `Diagnosis: ${line.replace("**Diagnosis**: ", "")}`, bold: true };
+        }
+        if (line.startsWith("**Recommendations**")) {
+            return { text: `Recommendations: ${line.replace("**Recommendations**:", "")}`, bold: true };
+        }
+        if (line.startsWith("**Specialist**")) {
+            return { text: `Specialist: ${line.replace("**Specialist**: ", "")}`, bold: true };
+        }
+        return { text: line, bold: false };
     });
 
-    // Add text lines to PDF
-    pdf.setFont("helvetica");
-    pdf.setFontSize(12);
-    lines.forEach((line, index) => {
-        pdf.text(10, 10 + index * 10, line);  // Adjust vertical position for each line
+    let yPosition = 10; // Starting vertical position for text
+    const pageWidth = pdf.internal.pageSize.width; // Page width
+    const marginLeft = 10; // Left margin for text
+
+    // Add a title to the PDF
+    pdf.setFontSize(16);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("Diagnosis Report", marginLeft, yPosition);
+    yPosition += 15; // Move down after the title
+
+    // Loop through each line and add it to the PDF with word wrapping
+    lines.forEach((line) => {
+        pdf.setFontSize(12);
+        // Set the font style
+        if (line.bold) {
+            pdf.setFont("helvetica", "bold");
+        } else {
+            pdf.setFont("helvetica", "normal");
+        }
+
+        // Use splitTextToSize to wrap the text within the page width
+        const wrappedText = pdf.splitTextToSize(line.text, pageWidth - marginLeft * 2);
+
+        // Add the wrapped text to the PDF
+        pdf.text(wrappedText, marginLeft, yPosition);
+        yPosition += wrappedText.length * 6; // Adjust vertical spacing based on number of lines
+
+        // Check if we're nearing the bottom of the page and need to add a new page
+        if (yPosition > pdf.internal.pageSize.height - 20) {
+            pdf.addPage();
+            yPosition = 10; // Reset yPosition to start a new page
+        }
     });
 
     // Save the PDF
     pdf.save('diagnosis.pdf');
 }
-
 
 function startAgain() {
     const chatLog = document.getElementById('chat-log');
