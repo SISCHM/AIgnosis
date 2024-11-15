@@ -1,4 +1,4 @@
-#AIgnosis
+# AIgnosis
 ## Setup
 For the app to work you need an OpenAI API key and paste in the according file (you need to create in this directory) in 'DocAnamnesis\src\utils\OPENAI_API_KEY.txt'.
 Here is the link to the website for the OpenAI API https://platform.openai.com/login?launch
