@@ -1,4 +1,5 @@
 # AIgnosis
+AIgnosis is a digital anamnesis tool that integrates Natural Language Processing with a virtual human interface to enhance user engagement. The NLP component consists of a chatbot which collects and analyzes medical information, providing preliminary diagnoses or advice, while the virtual human, implemented in Unity, offers immersive interaction through dynamic animations, Text-to-Speech synchronization, and real-time responsiveness.
 ## Setup
 For the app to work you need an OpenAI API key and paste in the according file (you need to create in this directory) in 'DocAnamnesis\src\utils\OPENAI_API_KEY.txt'.
 Here is the link to the website for the OpenAI API https://platform.openai.com/login?launch
